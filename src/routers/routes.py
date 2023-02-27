@@ -13,6 +13,7 @@ from models import model
 from utils import util
 
 from uuid import uuid4
+import traceback
 import hashlib
 
 
@@ -26,15 +27,18 @@ async def webhook():
 
 @router.post("/getTotalPremium")
 async def getTotalPremium(requestData : model.InputPremiumInfo):
-    try:        
+    try:
+        print("Input",requestData.dict())        
         responseData = await handler.getTotalPremium(requestData)
         responseData = await util.convertToString(responseData.dict())
+        print("Output",responseData)
         return {
             "data":responseData,
             "success":True,
             "error":None
         }
     except exceptions.HandledExceptions as e:
+        print(traceback.format_exc())
         print("Error in getTotalPremium : "+str(e))
         return {
             "data":None,
@@ -42,6 +46,7 @@ async def getTotalPremium(requestData : model.InputPremiumInfo):
             "error":e.message,
         }
     except Exception as e:
+        print(traceback.format_exc())
         print("Error in getTotalPremium : "+str(e))
         return {
             "data":None,

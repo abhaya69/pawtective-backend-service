@@ -12,6 +12,7 @@ class InputPremiumInfo(BaseModel):
     pet_breed_category : str = None
     sum_insured : str = None
     addons : Addons = None
+    onlyAddonsCost : str = '0'
 
 class PremiumDetails(BaseModel):
     sum_insured : float = 0

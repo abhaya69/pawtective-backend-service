@@ -27,21 +27,29 @@ async def calculateTotalPremium(requestData : model.InputPremiumInfo) -> model.P
     premiumDetails.premium_amount = sum_insured*amountData['bc'] + \
                                     sum_insured*amountData['b1'] + amountData['b2'] + amountData['b3']
 
-    if requestData.addons:
-        if requestData.addons.tp_cover=='Add':
-            premiumDetails.tp_cover = sum_insured*amountData['tpa']
-        if requestData.addons.lost_stolen_cover=='Add':
-            premiumDetails.lost_stolen_cover = sum_insured*amountData['las']
-        if requestData.addons.vet_cosultation_cover=='Add':
-            premiumDetails.vet_cosultation_cover = amountData['vv']
-        if requestData.addons.emergency_miniding_cover=='Add':
-            premiumDetails.emergency_miniding_cover = amountData['em']
+    if int(requestData.onlyAddonsCost):
+        premiumDetails.tp_cover = round(sum_insured*amountData['tpa'],2)
+        premiumDetails.lost_stolen_cover = round(sum_insured*amountData['las'],2)
+        premiumDetails.vet_cosultation_cover = amountData['vv']
+        premiumDetails.emergency_miniding_cover = amountData['em']
 
-    premiumDetails.gross_total = premiumDetails.premium_amount+premiumDetails.tp_cover+ \
-                                    premiumDetails.lost_stolen_cover+premiumDetails.vet_cosultation_cover+\
-                                        premiumDetails.emergency_miniding_cover
+        premiumDetails.gross_total = premiumDetails.premium_amount
+    else:
+        if requestData.addons:
+            if requestData.addons.tp_cover=='Add':
+                premiumDetails.tp_cover = round(sum_insured*amountData['tpa'],2)
+            if requestData.addons.lost_stolen_cover=='Add':
+                premiumDetails.lost_stolen_cover = round(sum_insured*amountData['las'],2)
+            if requestData.addons.vet_cosultation_cover=='Add':
+                premiumDetails.vet_cosultation_cover = amountData['vv']
+            if requestData.addons.emergency_miniding_cover=='Add':
+                premiumDetails.emergency_miniding_cover = amountData['em']
 
-    premiumDetails.gst_details = premiumDetails.gross_total*0.18
-    premiumDetails.final_premium = premiumDetails.gross_total+premiumDetails.gst_details
+        premiumDetails.gross_total = premiumDetails.premium_amount+premiumDetails.tp_cover+ \
+                                        premiumDetails.lost_stolen_cover+premiumDetails.vet_cosultation_cover+\
+                                            premiumDetails.emergency_miniding_cover
+
+    premiumDetails.gst_details = round(premiumDetails.gross_total*0.18,2)
+    premiumDetails.final_premium = round(premiumDetails.gross_total+premiumDetails.gst_details,2)
 
     return premiumDetails
