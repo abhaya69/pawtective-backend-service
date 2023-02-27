@@ -10,6 +10,7 @@ from fastapi import APIRouter,BackgroundTasks
 from handlers import handler
 from models import exceptions
 from models import model
+from utils import util
 
 from uuid import uuid4
 import hashlib
@@ -27,7 +28,7 @@ async def webhook():
 async def getTotalPremium(requestData : model.InputPremiumInfo):
     try:        
         responseData = await handler.getTotalPremium(requestData)
-
+        responseData = await util.convertToString(responseData.dict())
         return {
             "data":responseData,
             "success":True,

@@ -37,3 +37,9 @@ async def generate_checksum(
     checksum = hashlib.sha256(_text.encode('utf-8')).hexdigest()
     print("Checksum "+checksum)
     return checksum
+
+async def convertToString(data):
+    for key,value in data.items():
+        if type(value)==int or type(value)==float:
+            data[key]=str(value)
+    return data
