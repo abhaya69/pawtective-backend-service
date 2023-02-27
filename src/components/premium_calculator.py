@@ -20,16 +20,18 @@ async def calculateTotalPremium(requestData : model.InputPremiumInfo) -> model.P
     
     if not amountData:
         raise exceptions.InvalidInput('Invalid Age Provided for the Category')
+    
+    sum_insured = int(requestData.sum_insured.lower().replace('₹','').replace(' ','').replace('lakh','00000'))
 
-    premiumDetails.sum_insured = requestData.sum_insured
-    premiumDetails.premium_amount = requestData.sum_insured*amountData['bc'] + \
-                                    requestData.sum_insured*amountData['b1'] + amountData['b2'] + amountData['b3']
+    premiumDetails.sum_insured = sum_insured
+    premiumDetails.premium_amount = sum_insured*amountData['bc'] + \
+                                    sum_insured*amountData['b1'] + amountData['b2'] + amountData['b3']
 
     if requestData.addons:
         if requestData.addons.tp_cover=='Add':
-            premiumDetails.tp_cover = requestData.sum_insured*amountData['tpa']
+            premiumDetails.tp_cover = sum_insured*amountData['tpa']
         if requestData.addons.lost_stolen_cover=='Add':
-            premiumDetails.lost_stolen_cover = requestData.sum_insured*amountData['las']
+            premiumDetails.lost_stolen_cover = sum_insured*amountData['las']
         if requestData.addons.vet_cosultation_cover=='Add':
             premiumDetails.vet_cosultation_cover = amountData['vv']
         if requestData.addons.emergency_miniding_cover=='Add':

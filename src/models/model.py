@@ -10,7 +10,7 @@ class Addons(BaseModel):
 class InputPremiumInfo(BaseModel):
     pet_age : str = None
     pet_breed_category : str = None
-    sum_insured : int = None
+    sum_insured : str = None
     addons : Addons = None
 
 class PremiumDetails(BaseModel):
