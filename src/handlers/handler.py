@@ -3,6 +3,7 @@ from models import model
 from components import premium_calculator,verification,payment_gateway
 from fastapi.responses import HTMLResponse
 import config
+import requests
 
 async def getTotalPremium(requestData : model.InputPremiumInfo) -> model.PremiumDetails:
     premiumDetails = await premium_calculator.calculateTotalPremium(requestData)
@@ -18,7 +19,7 @@ async def generatePaymentLink(requestData : model.InputPaymentDetails) -> model.
                     requestData.pet_parent_last_name,
                     requestData.pet_parent_mobile,
                     requestData.pet_parent_email,
-                    str(requestData.final_premium)
+                    requestData.final_premium
                 )
     return {
         "url":url
@@ -40,5 +41,12 @@ async def generatePaymentPage(
     )
     return paymentPage
 
-# async def handlePaymentResponse(requestBody):
-    
+async def handlePaymentResponse(
+    WS_P_ID : str,
+    TID : str,
+    PGID : str,
+    Premium : str,
+    Response : str
+):
+    print(WS_P_ID,TID,PGID,Premium,Response)
+    resp = requests.post('https://app.chat360.io/service/v1/task')

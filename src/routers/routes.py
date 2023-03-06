@@ -56,9 +56,10 @@ async def getTotalPremium(requestData : model.InputPremiumInfo):
 
 @router.post("/verifyCKYC")
 async def verifyCKYC(requestData : model.InputCKYCVerification):
-    try:        
+    try:
+        print("Input",requestData.dict())         
         responseData = await handler.verifyCKYC(requestData)
-
+        print("Output",responseData)
         return {
             "data":responseData,
             "success":True,
@@ -66,6 +67,7 @@ async def verifyCKYC(requestData : model.InputCKYCVerification):
         }
     except exceptions.HandledExceptions as e:
         print("Error in verifyCkyc : "+str(e))
+        print(traceback.format_exc())
         return {
             "data":None,
             "success":False,
@@ -73,6 +75,7 @@ async def verifyCKYC(requestData : model.InputCKYCVerification):
         }
     except Exception as e:
         print("Error in verifyCkyc : "+str(e))
+        print(traceback.format_exc())
         return {
             "data":None,
             "success":False,
@@ -81,9 +84,10 @@ async def verifyCKYC(requestData : model.InputCKYCVerification):
 
 @router.post("/getPaymentLink")
 async def getPaymentLink(requestData : model.InputPaymentDetails):
-    try:        
+    try:
+        print("Input",requestData.dict())         
         responseData = await handler.generatePaymentLink(requestData)
-
+        print("Output",responseData)
         return {
             "data":responseData,
             "success":True,
@@ -91,6 +95,7 @@ async def getPaymentLink(requestData : model.InputPaymentDetails):
         }
     except exceptions.HandledExceptions as e:
         print("Error in getPaymentLink : "+str(e))
+        print(traceback.format_exc())
         return {
             "data":None,
             "success":False,
@@ -98,6 +103,7 @@ async def getPaymentLink(requestData : model.InputPaymentDetails):
         }
     except Exception as e:
         print("Error in getPaymentLink : "+str(e))
+        print(traceback.format_exc())
         return {
             "data":None,
             "success":False,
@@ -112,7 +118,8 @@ async def makePayment(
     pet_parent_email : str,
     final_premium : str
 ):
-    try:        
+    try:
+        print("Input: ",pet_parent_first_name,pet_parent_last_name,pet_parent_mobile,pet_parent_email,final_premium)        
         responseData = await handler.generatePaymentPage(
             pet_parent_first_name,
             pet_parent_last_name,
@@ -120,15 +127,46 @@ async def makePayment(
             pet_parent_email,
             final_premium
         )
-
+        print("Output",responseData)
         return responseData
     except exceptions.HandledExceptions as e:
         print("Error in generatePaymentPage : "+str(e))
+        print(traceback.format_exc())
         return "<h1>Internal Server Error</h1>"
     except Exception as e:
         print("Error in generatePaymentPage : "+str(e))
+        print(traceback.format_exc())
         return "<h1>Internal Server Error</h1>"
     
-# @router.post("/paymentResponse")
-# async def paymentResponse(request : Request):
+# @router.get("/paymentResponse")
+# async def paymentResponse(
+#     WS_P_ID : str,
+#     TID : str,
+#     PGID : str,
+#     Premium : str,
+#     Response : str
+# ):
+#     try:        
+#         responseData = await handler.generatePaymentLink(requestData)
+
+#         return {
+#             "data":responseData,
+#             "success":True,
+#             "error":None
+#         }
+#     except exceptions.HandledExceptions as e:
+#         print("Error in getPaymentLink : "+str(e))
+#         return {
+#             "data":None,
+#             "success":False,
+#             "error":e.message,
+#         }
+#     except Exception as e:
+#         print("Error in getPaymentLink : "+str(e))
+#         return {
+#             "data":None,
+#             "success":False,
+#             "error":"Internal Server Error"
+#         }
+
 

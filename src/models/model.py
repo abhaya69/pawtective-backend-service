@@ -83,7 +83,7 @@ class InputPaymentDetails(BaseModel):
     pet_parent_last_name : str = None
     pet_parent_mobile : str = None
     pet_parent_email : str = None
-    final_premium : float = 0
+    final_premium : str = '0'
 
 class OutputPaymentDetails(BaseModel):
     payment_link : str = None

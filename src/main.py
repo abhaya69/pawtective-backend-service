@@ -42,3 +42,5 @@ app.include_router(
 
 if __name__=='__main__':
     uvicorn.run("main:app",host="0.0.0.0",port=8000,workers=1)
+
+    # BUYidAjRUV7eO9D8AovlU6rzBdKe0NRn3CQ4pdKjGUnZH1BcU0Aa79reZ5MMIPGqpdQS55Tclkl9tb2$zx0UUi8vS9jEbeHhstmN$2DC$vmpn18VeDb4Z3mfRKWkpZ$8Db4GgetdkfxbMP1IC8FCEv4pgpUT6dU5

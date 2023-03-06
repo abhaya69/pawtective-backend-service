@@ -20,7 +20,7 @@ async def generatePaymentPage(
 
     cvfutureTransactionID = str(uuid4())
     cvfuturePaymentOption = '3'
-    cvfutureResponseURL = "https://webhook.site/ca5f5322-1786-478e-935d-a51b824c7280"
+    cvfutureResponseURL = "https://webhook.site/ca67205c-fc1f-4522-ad8f-7868718334a0"
     # cvfutureResponseURL = config.BASE_API_URL+"/api/paymentResponse"
     cvfutureProposalNumber = pet_parent_mobile
     cvfuturePremiumAmount = final_premium
@@ -34,7 +34,7 @@ async def generatePaymentPage(
     return """
     <html>
     <body onload="document.forms['cvfuturePaymentForm'].submit()">
-    <form name="cvfuturePaymentForm" action="http://fglpg001.futuregenerali.in/Ecom_NL/WEBAPPLN/UI/Common/WebAggPayNew.aspx" method="post">
+    <form name="cvfuturePaymentForm" action="http://fglpg001.futuregenerali.in/Ecom_NL/WEBAPPLN/UI/Common/WebAggPay.aspx" method="post">
         <input type="hidden" id="cvfutureTransactionID" name="TransactionID" value="{}">
         <input type="hidden" id="cvfuturePaymentOption" name="PaymentOption" value="{}">
         <input type="hidden" id="cvfutureResponseURL" name="ResponseURL" value="{}">
